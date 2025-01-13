@@ -48,11 +48,10 @@ class Activity(Base):
                                  secondary="organization_activities",
                                  back_populates="activities")
 
+
 class OrganizationActivity(Base):
     __tablename__ = "organization_activities"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     organization_id = Column(Integer, ForeignKey("organizations.id"))
     activity_id = Column(Integer, ForeignKey("activities.id"))
-
-

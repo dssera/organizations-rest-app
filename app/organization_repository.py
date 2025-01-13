@@ -14,6 +14,7 @@ class OrganizationRepository:
         В методах создается объект сессии, что есть плохо, т к это не
         ответственность репы. Решается с помощью паттерна UoW
     """
+
     def __init__(self):
         # will be used later in UoW
         pass
@@ -30,11 +31,11 @@ class OrganizationRepository:
             session: Session = SessionLocal()
             try:
                 organizations = (session.query(models.Organization)
-                    .join(models.Organization.building)
-                    .filter((models.Building.city == city) &
-                            (models.Building.street == street) &
-                            (models.Building.house == house))
-                    .all())
+                                 .join(models.Organization.building)
+                                 .filter((models.Building.city == city) &
+                                         (models.Building.street == street) &
+                                         (models.Building.house == house))
+                                 .all())
                 return [schemas.Organization.model_validate(org) for
                         org in organizations]
             finally:
@@ -42,18 +43,17 @@ class OrganizationRepository:
         except ValidationError as e:
             print(f"ValidationError: {e}")
             print(traceback.format_exc())
-
 
     def get_organizations_by_activity(
             self,
             activity: str
-    )  -> List[schemas.Organization] | None:
+    ) -> List[schemas.Organization] | None:
         try:
             session: Session = SessionLocal()
             try:
                 organizations = (session.query(models.Organization)
-                        .join(models.Organization.activities)
-                        .filter(models.Activity.name == activity))
+                                 .join(models.Organization.activities)
+                                 .filter(models.Activity.name == activity))
                 return [schemas.Organization.model_validate(org) for
                         org in organizations]
             finally:
@@ -61,7 +61,6 @@ class OrganizationRepository:
         except ValidationError as e:
             print(f"ValidationError: {e}")
             print(traceback.format_exc())
-
 
     def get_organization_by_id(
             self,
@@ -80,7 +79,6 @@ class OrganizationRepository:
             print(f"ValidationError: {e}")
             print(traceback.format_exc())
 
-
     def get_organization_by_name(
             self,
             name: str
@@ -97,7 +95,6 @@ class OrganizationRepository:
         except ValidationError as e:
             print(f"ValidationError: {e}")
             print(traceback.format_exc())
-
 
     def get_buildings_by_city(
             self,
@@ -121,7 +118,6 @@ class OrganizationRepository:
             print(f"An unexpected error occurred: {e}")
             print(traceback.format_exc())
 
-
     def get_all_subactivities(
             self,
             activity_name,
@@ -137,7 +133,6 @@ class OrganizationRepository:
             subactivities.append(child)
             subactivities.extend(self.get_all_subactivities(child.name, session, depth + 1, max_depth))
         return subactivities
-
 
     def find_organizations_by_activity(self, activity_name):
         try:
@@ -164,6 +159,3 @@ class OrganizationRepository:
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
             print(traceback.format_exc())
-
-
-

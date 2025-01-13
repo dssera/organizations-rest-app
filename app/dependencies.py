@@ -6,7 +6,6 @@ from app.services import OrganizationService
 
 from app.config import API_SECRET_KEY
 
-
 api_key_header = APIKeyHeader(name="API-key")
 
 

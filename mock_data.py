@@ -7,6 +7,7 @@ from app import models, schemas
 from app.db import SessionLocal
 from app.models import Organization, Building, Activity, OrganizationActivity
 
+
 def add_mock_data():
     session = SessionLocal()
 
@@ -35,7 +36,6 @@ def add_mock_data():
     session.add_all([activity3, activity4, activity5, activity6])
     session.commit()
 
-
     activity7 = Activity(name="Колбасы", parent_id=activity3.id)
     activity8 = Activity(name="Стейки", parent_id=activity3.id)
     activity9 = Activity(name="Творожная продукция", parent_id=activity4.id)
@@ -47,7 +47,8 @@ def add_mock_data():
     session.add(activity10)
     session.commit()
 
-    org1 = Organization(name="ООО Рога и Копыта", phone_numbers="2-222-222, 3-333-333, 8-923-666-13-13", building_id=building1.id)
+    org1 = Organization(name="ООО Рога и Копыта", phone_numbers="2-222-222, 3-333-333, 8-923-666-13-13",
+                        building_id=building1.id)
     org2 = Organization(name="ООО Пример", phone_numbers="3-333-333", building_id=building2.id)
     org3 = Organization(name="Apple", phone_numbers="323-333-333", building_id=building3.id)
 
@@ -62,6 +63,7 @@ def add_mock_data():
     session.commit()
 
     session.close()
+
 
 if __name__ == "__main__":
     add_mock_data()
