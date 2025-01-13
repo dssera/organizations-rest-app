@@ -1,0 +1,7 @@
+to make alembic migration
+    alembic revision --autogenerate -m "init migration"
+to apply migration
+    alembic upgrade head
+
+
+
